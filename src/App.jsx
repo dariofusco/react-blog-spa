@@ -4,65 +4,30 @@ import Card from './components/Card'
 import Form from "./components/Form"
 import axios from "axios"
 
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import DefaultLayout from "./pages/DefaultLayout";
+import Home from "./pages/Home";
+import Index from "./pages/Index";
+import Show from "./pages/Show";
+import Create from "./pages/Create";
+
 const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
 function App() {
 
-  const [posts, setPosts] = useState([]);
-
-  const fetchPost = async () => {
-    await axios.get(`${apiUrl}/posts`)
-      .then(res => {
-        const posts = res.data;
-        setPosts(posts);
-        console.log(posts);
-      })
-  }
-
-  const [tags, setTags] = useState([]);
-  const fetchTags = async () => {
-    const url = `${apiUrl}/tags`;
-    const { data: array } = await axios.get(url);
-    setTags(array);
-    console.log(array);
-  }
-
-  const [categories, setCategories] = useState([]);
-  const fetchCategories = async () => {
-    const url = `${apiUrl}/categories`;
-    const { data: array } = await axios.get(url);
-    setCategories(array);
-    console.log(array);
-  }
-
-  useEffect(() => {
-    fetchPost();
-    fetchTags();
-    fetchCategories();
-  }, [])
-
   return (
-    <>
-      <Form
-        tags={tags}
-        categories={categories}
-        onCreate={() => {
-          fetchPost()
-        }}
-      />
-
-      {posts.map(post => (
-        <Card
-          key={post.id}
-          title={post.title}
-          content={post.content}
-          tags={post.tags.map(tag => tag.name)}
-          published={post.published}
-        />
-      ))}
-
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<DefaultLayout />} >
+          <Route index element={<Home />} />
+          <Route path="index" element={<Index />} />
+          <Route path="/show/:slug" element={<Show />} />
+          <Route path="create" element={<Create />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
+
 }
 
 export default App

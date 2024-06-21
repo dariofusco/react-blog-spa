@@ -1,6 +1,6 @@
-import { FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-export default function ({ title, image, content, tags, published }) {
+export default function ({ title, image, content, tags, published, slug }) {
     return (
         <div className={`card ${published ? 'published' : ''}`}>
             {image &&
@@ -13,7 +13,7 @@ export default function ({ title, image, content, tags, published }) {
                     <span className="tag" key={index}>{tag}</span>
                 ))}
             </div>
-            <button><FaTrashAlt /></button>
+            <Link to={`/show/${slug}`}>Show</Link>
         </div>
     )
 }
