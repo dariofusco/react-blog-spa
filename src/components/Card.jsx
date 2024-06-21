@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function ({ title, image, content, tags, published, slug }) {
+export default function ({ title, image, content, tags, published, slug, category }) {
     return (
         <div className={`card ${published ? 'published' : ''}`}>
             {image &&
@@ -13,6 +13,7 @@ export default function ({ title, image, content, tags, published, slug }) {
                     <span className="tag" key={index}>{tag}</span>
                 ))}
             </div>
+            <h3>{category}</h3>
             <Link to={`/show/${slug}`}>Show</Link>
         </div>
     )

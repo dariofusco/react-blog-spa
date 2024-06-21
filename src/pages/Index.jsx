@@ -28,6 +28,7 @@ export default function () {
                     content={post.content}
                     slug={post.slug}
                     tags={post.tags.map(tag => tag.name)}
+                    category={post?.category?.name ?? ''}
                     published={post.published}
                 />
             ))}
